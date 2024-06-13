@@ -2,12 +2,12 @@ package jacob.wigellspadel;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-public class WIgellsPadelApplication {
+public class WigellsPadelApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(WIgellsPadelApplication.class, args);
+        SpringApplication.run(WigellsPadelApplication.class, args);
     }
-
 }
