@@ -17,17 +17,14 @@ public class Booking {
     private User user;
 
     @OneToOne
-    @JoinColumn(name = "field_id")
-    private Field field;
-
-    @Column(name = "bana")
-    private int bana;
+    @JoinColumn(name = "court_id")
+    private Court court;
 
     @Column(name = "datum")
     private Date datum;
 
     @Column(name = "tid")
-    private Time time;
+    private Time Tid;
 
     @Column(name = "antal_spelare")
     private int antalSpelare;
@@ -38,12 +35,13 @@ public class Booking {
     public Booking() {
     }
 
-    public Field getField() {
-        return field;
+
+    public Court getCourt() {
+        return court;
     }
 
-    public void setField(Field field) {
-        this.field = field;
+    public void setCourt(Court court) {
+        this.court = court;
     }
 
     public int getId() {
@@ -62,14 +60,6 @@ public class Booking {
         this.user = user;
     }
 
-    public int getBana() {
-        return bana;
-    }
-
-    public void setBana(int bana) {
-        this.bana = bana;
-    }
-
     public Date getDatum() {
         return datum;
     }
@@ -78,12 +68,12 @@ public class Booking {
         this.datum = datum;
     }
 
-    public Time getTime() {
-        return time;
+    public Time getTid() {
+        return Tid;
     }
 
-    public void setTime(Time time) {
-        this.time = time;
+    public void setTid(Time tid) {
+        Tid = tid;
     }
 
     public int getAntalSpelare() {

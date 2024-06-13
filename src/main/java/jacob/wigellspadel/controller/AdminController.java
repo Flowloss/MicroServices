@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v5")
 public class AdminController {
+
     @Autowired
     private UserServiceInterface userService;
 
@@ -18,19 +19,21 @@ public class AdminController {
         return userService.getAllUsers();
     }
 
-    @PostMapping("/addfield")
-    public ResponseEntity<String> addField() {
-        // Implement logic to add field
-        return ResponseEntity.ok("Field added successfully");
+    @PostMapping("/users")
+    public User addUser(@RequestBody User user) {
+        return userService.createUser(user);
     }
 
-    @DeleteMapping("/deletefield/{id}")
-    public ResponseEntity<String> deleteField(@PathVariable int id) {
-        // Implement logic to delete field by id
-        return ResponseEntity.ok("Field deleted successfully");
+    @DeleteMapping("/users/{id}")
+    public void deleteUser(@PathVariable int id) {
+        userService.deleteUser(id);
+    }
+
+    @PutMapping("/users/{id}")
+    public User updateUser(@PathVariable int id, @RequestBody User user) {
+        return userService.updateUser(id, user);
     }
 }
-
 
 
 
