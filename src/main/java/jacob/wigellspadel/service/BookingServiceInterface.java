@@ -13,6 +13,6 @@ public interface BookingServiceInterface {
     Booking createBooking(Booking booking);
     Booking updateBooking(int id, Booking booking);
     void deleteBooking(int id);
-    List<Booking> getBookingsByUserId(int userId);
+    List<Booking> getBookingsByUserId(int id);
     List<Court> listAvailableCourts();
 }

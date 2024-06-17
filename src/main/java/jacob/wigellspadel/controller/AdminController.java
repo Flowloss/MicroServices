@@ -1,12 +1,15 @@
 package jacob.wigellspadel.controller;
 
+import jacob.wigellspadel.model.Court;
 import jacob.wigellspadel.model.User;
+import jacob.wigellspadel.service.CourtServiceInterface;
 import jacob.wigellspadel.service.UserServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
 @RequestMapping("/api/v5")
 public class AdminController {
@@ -14,26 +17,34 @@ public class AdminController {
     @Autowired
     private UserServiceInterface userService;
 
+    @Autowired
+    private CourtServiceInterface courtService;
+
     @GetMapping("/customers")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<User> listCustomers() {
         return userService.getAllUsers();
     }
 
-    @PostMapping("/users")
-    public User addUser(@RequestBody User user) {
-        return userService.createUser(user);
+    @PostMapping("/addfield")
+    @PreAuthorize("hasRole('ADMIN')")
+    public Court addField(@RequestBody Court court) {
+        return courtService.createCourt(court);
     }
 
-    @DeleteMapping("/users/{id}")
-    public void deleteUser(@PathVariable int id) {
-        userService.deleteUser(id);
+    @DeleteMapping("/deletefield/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public void deleteField(@PathVariable int id) {
+        courtService.deleteCourt(id);
     }
 
-    @PutMapping("/users/{id}")
-    public User updateUser(@PathVariable int id, @RequestBody User user) {
-        return userService.updateUser(id, user);
+    @PutMapping("/updateinfo/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public Court updateCourt(@PathVariable int id, @RequestBody Court court) {
+        return courtService.updateCourt(id, court);
     }
 }
+
 
 
 

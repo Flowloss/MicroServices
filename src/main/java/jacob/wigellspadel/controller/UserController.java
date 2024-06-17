@@ -3,14 +3,10 @@ package jacob.wigellspadel.controller;
 import jacob.wigellspadel.model.Booking;
 import jacob.wigellspadel.model.Court;
 import jacob.wigellspadel.service.BookingServiceInterface;
-import jacob.wigellspadel.service.UserServiceInterface;
-import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,26 +16,28 @@ public class UserController {
     @Autowired
     private BookingServiceInterface bookingService;
 
-    // Endpoint to list available times
+    //Fixa något med tiden/dautm, "error": "Unsupported Media Type",
+
     @GetMapping("/availability")
+    @PreAuthorize("hasRole('USER')")
     public List<Court> listAvailableTimes() {
         return bookingService.listAvailableCourts();
     }
 
-    // Endpoint to book a time
     @PostMapping("/booking")
+    @PreAuthorize("hasRole('USER')")
     public Booking bookTime(@RequestBody Booking booking) {
         return bookingService.createBooking(booking);
     }
 
-    // Endpoint to get user's bookings
-    @GetMapping("/mybookings")
-    public List<Booking> getMyBookings(@RequestParam int userId) {
-        return bookingService.getBookingsByUserId(userId);
+    @GetMapping("/mybookings/{id}")
+    @PreAuthorize("hasRole('USER')")
+    public List<Booking> getMyBookings(@PathVariable int id) {
+        return bookingService.getBookingsByUserId(id);
     }
 
-    // Endpoint to update a booking
     @PutMapping("/bookings/{id}")
+    @PreAuthorize("hasRole('USER')")
     public Booking updateBooking(@PathVariable int id, @RequestBody Booking booking) {
         return bookingService.updateBooking(id, booking);
     }

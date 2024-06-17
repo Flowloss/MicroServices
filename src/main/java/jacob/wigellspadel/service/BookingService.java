@@ -52,13 +52,12 @@ public class BookingService implements BookingServiceInterface {
     }
 
     @Override
-    public List<Booking> getBookingsByUserId(int userId) {
-        return bookingRepository.findByUserId(userId);
+    public List<Booking> getBookingsByUserId(int id) {
+        return bookingRepository.findByUserId(id);
     }
 
     @Override
     public List<Court> listAvailableCourts() {
-        // Implement logic to find available courts. This might involve checking bookings and finding free slots.
-        return courtRepository.findAll(); // This is a placeholder, actual logic would involve more checks
+        return courtRepository.findAll();
     }
 }

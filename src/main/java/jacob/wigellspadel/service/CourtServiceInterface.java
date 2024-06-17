@@ -7,9 +7,7 @@ import java.util.List;
 
 @Service
 public interface CourtServiceInterface {
-    Court createField(Court court);
-    void deleteField(int id);
-    Court updateField(int id, Court court);
-    List<Court> getAllFields();
-    Court getFieldById(int id);
+    Court createCourt(Court court);
+    void deleteCourt(int id);
+    Court updateCourt(int id, Court court);
 }
