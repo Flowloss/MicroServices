@@ -11,7 +11,7 @@ INSERT INTO courts (court_name) VALUES ('Court A');
 INSERT INTO courts (court_name) VALUES ('Court B');
 
 -- Insert some sample bookings with associated fields
-INSERT INTO booking (user_id, court_id, datum, tid, antal_spelare, totalpris) VALUES (1, 1, '2024-06-12', '10:00:00', 4, 500);
-INSERT INTO booking (user_id, court_id, datum, tid, antal_spelare, totalpris) VALUES (2, 2, '2024-06-13', '14:00:00', 2, 300);
+INSERT INTO booking (user_id, court_id, antal_spelare, totalpris) VALUES (1, 1, 4, 500);
+INSERT INTO booking (user_id, court_id, antal_spelare, totalpris) VALUES (2, 2, 2, 300);
 
 

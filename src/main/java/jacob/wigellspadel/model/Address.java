@@ -1,6 +1,7 @@
 package jacob.wigellspadel.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -26,9 +27,8 @@ public class Address {
     private String zipCode;
 
     @OneToMany(mappedBy = "address")
-    @JsonBackReference
+    //@JsonManagedReference // Correcting the reference here
     private List<User> users;
-
     public Address() {
     }
 

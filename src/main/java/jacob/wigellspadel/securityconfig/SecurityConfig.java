@@ -2,9 +2,7 @@ package jacob.wigellspadel.securityconfig;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -43,6 +41,10 @@ public class SecurityConfig {
                 .requestMatchers("/api/v5/booking").hasRole("USER")
                 .requestMatchers("/api/v5/bookings/**").hasRole("USER")
                 .requestMatchers("/api/v5/availability/**").hasRole("USER")
+                .requestMatchers("/api/v5/customers").hasRole("ADMIN")
+                .requestMatchers("/api/v5/addfield").hasRole("ADMIN")
+                .requestMatchers("/api/v5/deletefield/{id}").hasRole("ADMIN")
+                .requestMatchers("/api/v5/updateinfo/{id}").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();

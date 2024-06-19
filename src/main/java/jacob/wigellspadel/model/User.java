@@ -1,7 +1,10 @@
 package jacob.wigellspadel.model;
 
-import jakarta.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+
 import java.util.List;
 
 @Entity
@@ -23,10 +26,11 @@ public class User {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "address_id", nullable = false)
-    @JsonManagedReference
+    //@JsonBackReference
     private Address address;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //@JsonManagedReference
     private List<Booking> bookings;
 
     public User() {

@@ -1,5 +1,7 @@
 package jacob.wigellspadel.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
@@ -14,6 +16,7 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    //@JsonBackReference // Correcting the reference here
     private User user;
 
     @OneToOne
@@ -24,14 +27,13 @@ public class Booking {
     private Date datum;
 
     @Column(name = "tid")
-    private Time Tid;
+    private Time tid;
 
     @Column(name = "antal_spelare")
     private int antalSpelare;
 
     @Column(name = "totalpris")
     private long totalpris;
-
     public Booking() {
     }
 
@@ -69,11 +71,11 @@ public class Booking {
     }
 
     public Time getTid() {
-        return Tid;
+        return tid;
     }
 
     public void setTid(Time tid) {
-        Tid = tid;
+        this.tid = tid;
     }
 
     public int getAntalSpelare() {

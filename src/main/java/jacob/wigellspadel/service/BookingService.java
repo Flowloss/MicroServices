@@ -35,16 +35,27 @@ public class BookingService implements BookingServiceInterface {
     }
 
     @Override
-    public Booking updateBooking(int id, Booking booking) {
-        Booking existingBooking = bookingRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Booking not found with id: " + id));
-        existingBooking.setDatum(booking.getDatum());
-        existingBooking.setTid(booking.getTid());
-        existingBooking.setAntalSpelare(booking.getAntalSpelare());
-        existingBooking.setTotalpris(booking.getTotalpris());
-        existingBooking.setCourt(booking.getCourt());
+    public Booking updateBooking(int id, Booking updatedBooking) {
+        Booking existingBooking = bookingRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Booking not found with id: " + id));
+
+        // Update fields if they are not null
+        if (updatedBooking.getDatum() != null) {
+            existingBooking.setDatum(updatedBooking.getDatum());
+        }
+        if (updatedBooking.getTid() != null) {
+            existingBooking.setTid(updatedBooking.getTid());
+        }
+        if (updatedBooking.getAntalSpelare() != 0) {
+            existingBooking.setAntalSpelare(updatedBooking.getAntalSpelare());
+        }
+        if (updatedBooking.getTotalpris() != 0) {
+            existingBooking.setTotalpris(updatedBooking.getTotalpris());
+        }
+
+        // Save and return updated booking
         return bookingRepository.save(existingBooking);
     }
-
     @Override
     public void deleteBooking(int id) {
         Booking existingBooking = bookingRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Booking not found with id: " + id));
