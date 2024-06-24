@@ -1,7 +1,5 @@
 package jacob.wigellspadel.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
@@ -16,7 +14,6 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    //@JsonBackReference // Correcting the reference here
     private User user;
 
     @OneToOne
@@ -34,17 +31,11 @@ public class Booking {
 
     @Column(name = "totalpris")
     private long totalpris;
+
     public Booking() {
     }
 
-
-    public Court getCourt() {
-        return court;
-    }
-
-    public void setCourt(Court court) {
-        this.court = court;
-    }
+    // Getters and setters for all fields
 
     public int getId() {
         return id;
@@ -60,6 +51,14 @@ public class Booking {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Court getCourt() {
+        return court;
+    }
+
+    public void setCourt(Court court) {
+        this.court = court;
     }
 
     public Date getDatum() {
@@ -94,5 +93,24 @@ public class Booking {
         this.totalpris = totalpris;
     }
 
-}
+    // Method to convert SEK to EUR with a fixed conversion rate
+    public double getTotalprisInEUR() {
+        double conversionRate = 0.1; // Assume 1 SEK = 0.1 EUR for simplicity
+        return this.totalpris * conversionRate;
+    }
 
+    // Override toString to display both SEK and EUR
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "id=" + id +
+                ", user=" + user +
+                ", court=" + court +
+                ", datum=" + datum +
+                ", tid=" + tid +
+                ", antalSpelare=" + antalSpelare +
+                ", totalpris=" + totalpris + " SEK" +
+                ", totalprisInEUR=" + getTotalprisInEUR() + " EUR" +
+                '}';
+    }
+}

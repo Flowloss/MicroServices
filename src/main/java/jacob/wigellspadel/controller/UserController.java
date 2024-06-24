@@ -16,7 +16,6 @@ public class UserController {
     @Autowired
     private BookingServiceInterface bookingService;
 
-    //Fixa något med tiden/dautm, "error": "Unsupported Media Type",
 
     @GetMapping("/availability")
     @PreAuthorize("hasRole('USER')")

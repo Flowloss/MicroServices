@@ -26,11 +26,9 @@ public class User {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "address_id", nullable = false)
-    //@JsonBackReference
     private Address address;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    //@JsonManagedReference
     private List<Booking> bookings;
 
     public User() {
