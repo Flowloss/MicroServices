@@ -3,8 +3,10 @@ package jacob.wigellspadel.service;
 import jacob.wigellspadel.exceptions.ResourceNotFoundException;
 import jacob.wigellspadel.model.Booking;
 import jacob.wigellspadel.model.Court;
+import jacob.wigellspadel.model.User;
 import jacob.wigellspadel.repository.BookingRepository;
 import jacob.wigellspadel.repository.CourtRepository;
+import jacob.wigellspadel.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,9 @@ public class BookingService implements BookingServiceInterface {
     @Autowired
     private CourtRepository courtRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public List<Booking> getAllBookings() {
         return bookingRepository.findAll();
@@ -31,15 +36,24 @@ public class BookingService implements BookingServiceInterface {
 
     @Override
     public Booking createBooking(Booking booking) {
+        // Fetch the Court and User entities before saving the booking
+        User user = userRepository.findById(booking.getUser().getId())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + booking.getUser().getId()));
+        Court court = courtRepository.findById(booking.getCourt().getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Court not found with id: " + booking.getCourt().getId()));
+
+        booking.setUser(user);
+        booking.setCourt(court);
+
         return bookingRepository.save(booking);
     }
+
 
     @Override
     public Booking updateBooking(int id, Booking updatedBooking) {
         Booking existingBooking = bookingRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Booking not found with id: " + id));
 
-        // Update fields if they are not null
         if (updatedBooking.getDatum() != null) {
             existingBooking.setDatum(updatedBooking.getDatum());
         }
@@ -69,6 +83,6 @@ public class BookingService implements BookingServiceInterface {
 
     @Override
     public List<Court> listAvailableCourts() {
-        return courtRepository.findAll();
+        return courtRepository.findAvailableCourts();
     }
 }

@@ -1,5 +1,7 @@
 package jacob.wigellspadel.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
@@ -12,13 +14,16 @@ public class Booking {
     @Column(name = "booking_id")
     private int id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
+    @JsonBackReference // Ensure proper JSON serialization
     private User user;
 
     @OneToOne
     @JoinColumn(name = "court_id")
+    @JsonManagedReference // Ensure proper JSON serialization
     private Court court;
+
 
     @Column(name = "datum")
     private Date datum;
@@ -31,11 +36,17 @@ public class Booking {
 
     @Column(name = "totalpris")
     private long totalpris;
-
     public Booking() {
     }
 
-    // Getters and setters for all fields
+
+    public Court getCourt() {
+        return court;
+    }
+
+    public void setCourt(Court court) {
+        this.court = court;
+    }
 
     public int getId() {
         return id;
@@ -51,14 +62,6 @@ public class Booking {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Court getCourt() {
-        return court;
-    }
-
-    public void setCourt(Court court) {
-        this.court = court;
     }
 
     public Date getDatum() {
@@ -93,14 +96,14 @@ public class Booking {
         this.totalpris = totalpris;
     }
 
-    // Method to convert SEK to EUR with a fixed conversion rate
+
     public double getTotalprisInEUR() {
-        double conversionRate = 0.1; // Assume 1 SEK = 0.1 EUR for simplicity
+        double conversionRate = 0.1;
         return this.totalpris * conversionRate;
     }
 
     // Override toString to display both SEK and EUR
-    @Override
+    /*@Override
     public String toString() {
         return "Booking{" +
                 "id=" + id +
@@ -112,5 +115,5 @@ public class Booking {
                 ", totalpris=" + totalpris + " SEK" +
                 ", totalprisInEUR=" + getTotalprisInEUR() + " EUR" +
                 '}';
-    }
+    }*/
 }

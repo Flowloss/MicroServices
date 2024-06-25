@@ -16,7 +16,6 @@ public class UserController {
     @Autowired
     private BookingServiceInterface bookingService;
 
-
     @GetMapping("/availability")
     @PreAuthorize("hasRole('USER')")
     public List<Court> listAvailableTimes() {

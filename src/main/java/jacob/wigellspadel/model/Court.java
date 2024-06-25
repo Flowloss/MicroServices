@@ -1,5 +1,6 @@
 package jacob.wigellspadel.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,8 +14,12 @@ public class Court {
     @Column(name = "court_name")
     private String courtName;
 
-    @OneToOne(mappedBy = "court")
+    @OneToOne(mappedBy = "court", cascade = CascadeType.ALL)
+    @JsonBackReference
     private Booking booking;
+
+
+
 
     public int getId() {
         return id;

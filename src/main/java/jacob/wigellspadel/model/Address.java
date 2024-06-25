@@ -27,8 +27,10 @@ public class Address {
     private String zipCode;
 
     @OneToMany(mappedBy = "address")
-    //@JsonManagedReference // Correcting the reference here
+    @JsonManagedReference // Correcting the reference here
     private List<User> users;
+
+
     public Address() {
     }
 

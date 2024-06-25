@@ -45,4 +45,3 @@ public class UserService implements UserServiceInterface {
         userRepository.delete(existingUser);
     }
 }
-
