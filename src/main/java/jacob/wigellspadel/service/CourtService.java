@@ -3,6 +3,8 @@ package jacob.wigellspadel.service;
 import jacob.wigellspadel.exceptions.ResourceNotFoundException;
 import jacob.wigellspadel.model.Court;
 import jacob.wigellspadel.repository.CourtRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,4 +32,3 @@ public class CourtService implements CourtServiceInterface {
         return courtRepository.save(existingCourt);
     }
 }
-

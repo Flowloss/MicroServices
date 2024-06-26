@@ -10,13 +10,20 @@ INSERT INTO user (username, firstname, lastname, address_id) VALUES ('Jaxon', 'J
 INSERT INTO user (username, firstname, lastname, address_id) VALUES ('Jason', 'John', 'Doe', 1);
 INSERT INTO user (username, firstname, lastname, address_id) VALUES ('Linus', 'Jane', 'Doe', 2);
 
--- Insert some sample fields (courts)
+-- Insert some sample courts (fields)
 INSERT INTO courts (court_name) VALUES ('Court A');
 INSERT INTO courts (court_name) VALUES ('Court B');
 
-INSERT INTO booking (user_id, court_id, antal_spelare, totalpris, datum, tid)
-VALUES (1, 1, 4, 500, '2024-06-25', '14:00:00'); -- John Doe books Court A on June 25, 2024 at 14:00
+-- Insert bookings with Euro equivalent price
+-- Assuming conversion rate is 0.1 (for demonstration)
+-- Replace 0.1 with actual conversion rate from SEK to EUR provided by your service
 
-INSERT INTO booking (user_id, court_id, antal_spelare, totalpris, datum, tid)
-VALUES (2, 2, 2, 300, '2024-06-26', '15:30:00'); -- Jane Doe books Court B on June 26, 2024 at 15:30
+-- Booking 1: John Doe books Court A on June 25, 2024 at 14:00
+INSERT INTO booking (user_id, court_id, antal_spelare, totalpris, datum, tid, priceineuro)
+VALUES (1, 1, 4, 500, '2024-06-25', '14:00:00', 500 * 0.1); -- 500 SEK * 0.1 conversion rate = 50 EUR
+
+-- Booking 2: Jane Doe books Court B on June 26, 2024 at 15:30
+INSERT INTO booking (user_id, court_id, antal_spelare, totalpris, datum, tid, priceineuro)
+VALUES (2, 2, 2, 300, '2024-06-26', '15:30:00', 300 * 0.1); -- 300 SEK * 0.1 conversion rate = 30 EUR
+
 

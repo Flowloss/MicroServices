@@ -36,9 +36,19 @@ public class Booking {
 
     @Column(name = "totalpris")
     private long totalpris;
+
+    @Column(nullable = true) // Adjust as per your DB schema
+    private Double priceineuro; // Use Double instead of double
     public Booking() {
     }
 
+    public double getPriceineuro() {
+        return priceineuro;
+    }
+
+    public void setPriceineuro(double priceineuro) {
+        this.priceineuro = priceineuro;
+    }
 
     public Court getCourt() {
         return court;
@@ -96,11 +106,6 @@ public class Booking {
         this.totalpris = totalpris;
     }
 
-
-    public double getTotalprisInEUR() {
-        double conversionRate = 0.1;
-        return this.totalpris * conversionRate;
-    }
 
     // Override toString to display both SEK and EUR
     /*@Override

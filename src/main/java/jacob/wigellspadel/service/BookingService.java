@@ -24,6 +24,9 @@ public class BookingService implements BookingServiceInterface {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CurrencyConvertService currencyConvertService;
+
     @Override
     public List<Booking> getAllBookings() {
         return bookingRepository.findAll();
@@ -42,9 +45,16 @@ public class BookingService implements BookingServiceInterface {
         Court court = courtRepository.findById(booking.getCourt().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Court not found with id: " + booking.getCourt().getId()));
 
+        // Set user and court entities in booking
         booking.setUser(user);
         booking.setCourt(court);
 
+        // Convert price from SEK to EUR using CurrencyConvertService
+        double amountInSek = booking.getTotalpris();
+        double amountInEur = currencyConvertService.convertToEur(amountInSek);  // Using the method from CurrencyConvertService
+        booking.setPriceineuro(amountInEur);
+
+        // Save and return the booking
         return bookingRepository.save(booking);
     }
 
@@ -64,12 +74,19 @@ public class BookingService implements BookingServiceInterface {
             existingBooking.setAntalSpelare(updatedBooking.getAntalSpelare());
         }
         if (updatedBooking.getTotalpris() != 0) {
+            // Update the total price in SEK
             existingBooking.setTotalpris(updatedBooking.getTotalpris());
+
+            // Convert price from SEK to EUR using CurrencyConvertService
+            double amountInSek = updatedBooking.getTotalpris();
+            double amountInEur = currencyConvertService.convertToEur(amountInSek);  // Using the method from CurrencyConvertService
+            existingBooking.setPriceineuro(amountInEur);
         }
 
         // Save and return updated booking
         return bookingRepository.save(existingBooking);
     }
+
     @Override
     public void deleteBooking(int id) {
         Booking existingBooking = bookingRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Booking not found with id: " + id));

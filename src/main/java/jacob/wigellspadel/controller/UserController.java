@@ -1,8 +1,11 @@
 package jacob.wigellspadel.controller;
 
+
 import jacob.wigellspadel.model.Booking;
 import jacob.wigellspadel.model.Court;
 import jacob.wigellspadel.service.BookingServiceInterface;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -40,4 +43,5 @@ public class UserController {
         return bookingService.updateBooking(id, booking);
     }
 }
+
 
